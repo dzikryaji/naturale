@@ -99,17 +99,17 @@
                     <h5 class="font-weight-semi-bold mb-4">Filter by Category</h5>
                     <form>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">All Category</label>
+                            <input type="checkbox" class="custom-control-input" id="cbAll" value="" {{ $category ? '' : 'checked' }}>
+                            <label class="custom-control-label" for="cbAll">All Category</label>
                             <!-- <span class="badge border font-weight-normal">1000</span> -->
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">Vegetables</label>
+                            <input type="checkbox" class="custom-control-input" id="cbVegetable" value="Vegetable" {{ $category == 'Vegetable' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="cbVegetable">Vegetable</label>
                         </div>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">Fruit</label>
+                            <input type="checkbox" class="custom-control-input" id="cbFruit" value="Fruit" {{ $category == 'Fruit' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="cbFruit">Fruit</label>
                         </div>
                     </form>
                 </div>
@@ -125,6 +125,9 @@
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-center mb-4">
                             <form action="/home">
+                                @if (request('category'))
+                                    <input type="hidden" name="category" value="{{ request('category') }}">
+                                @endif
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search by name" name="search" id='inputSearch' value="{{ request('search') }}">
                                     <div class="input-group-append">

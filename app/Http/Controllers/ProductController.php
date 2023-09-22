@@ -13,11 +13,16 @@ class ProductController extends Controller
     public function index()
     {
         $products = new Product;
+        $category = 0;
+        if(request('category')) {
+            $category = request('category');
+        }
 
         return view('home', [
             'title' => 'Home',
-            'products' => $products->filter(request(['search']))->get(),
-            'recommendation' => $products->all()
+            'products' => $products->filter(request(['search', 'category']))->get(),
+            'recommendation' => $products->all(),
+            'category' => $category
         ]);
     }
 

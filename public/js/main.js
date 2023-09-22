@@ -144,5 +144,34 @@
         }
     });
 
+    $('#cbAll').change(function () {
+        if ($('#cbAll').is(':checked')) {
+            window.location.replace("/home?category=" + $('#cbAll').val());
+            console.log($('#cbAll').val())
+        } else {
+            // window.location.replace("/");
+        }
+    });
+
+    $('#cbVegetable').change(function () {
+        if ($('#cbVegetable').is(':checked')) {
+            window.location.replace("/home?category=" + $('#cbVegetable').val());
+            console.log($('#cbVegetable').val())
+        } else {
+            // window.location.replace("/");
+        }
+    });
+
+    $('#cbFruit').change(function () {
+        if ($('#cbFruit').is(':checked')) {
+            window.location.replace("/home?category=" + $('#cbFruit').val());
+            console.log($('#cbFruit').val())
+        } else {
+            window.location.replace("/");
+        }
+    });
+
+
+
 })(jQuery);
 
