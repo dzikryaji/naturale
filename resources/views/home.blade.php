@@ -71,7 +71,7 @@
                 <h1 class="display-5">Our Fresh & Organic Products</h1>
             </div>
             <div class="owl-carousel product-carousel px-5">
-                @foreach ($products->shuffle() as $product)
+                @foreach ($recommendation->shuffle() as $product)
                     <div class="pb-5">
                         <div class="product-item position-relative bg-white d-flex flex-column text-center">
                             <img class="img-fluid mb-4" src="{{ url("img/product/" . $product->imagesrc . "1.jpg") }}" alt="">
@@ -123,14 +123,14 @@
             <div class="col-lg-10 col-md-12">
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <form action="">
+                        <div class="d-flex align-items-center justify-content-center mb-4">
+                            <form action="/home">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search by name">
+                                    <input type="text" class="form-control" placeholder="Search by name" name="search" id='inputSearch' value="{{ request('search') }}">
                                     <div class="input-group-append">
-                                        <span class="input-group-text bg-transparent text-primary h-100">
+                                        <button id="btnSearch" class="input-group-text bg-transparent text-primary h-100" type="{{ request('search') ? 'submit' : 'button' }}">
                                             <i class="fa fa-search"></i>
-                                        </span>
+                                        </button>
                                     </div>
                                 </div>
                             </form>

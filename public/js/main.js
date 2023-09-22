@@ -135,5 +135,14 @@
     setTimeout(() =>{
         $('#notification').hide('slow');
     }, 5000);
+
+    $('#inputSearch').blur(function () { 
+        if($(this).val().length === 0){
+            $('#btnSearch').attr('type', 'button');
+        } else {
+            $('#btnSearch').attr('type', 'submit');
+        }
+    });
+
 })(jQuery);
 

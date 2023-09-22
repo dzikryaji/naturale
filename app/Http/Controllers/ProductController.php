@@ -12,9 +12,12 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $products = new Product;
+
         return view('home', [
             'title' => 'Home',
-            'products' => Product::all()
+            'products' => $products->filter(request(['search']))->get(),
+            'recommendation' => $products->all()
         ]);
     }
 
