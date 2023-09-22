@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductController::class, 'index']);
+
+Route::get('/product/{product}', [ProductController::class, 'show']);
+
+Route::post('/address', [CheckoutController::class, 'address']);
+
+Route::post('/payment', [CheckoutController::class, 'payment']);
+
+Route::post('/checkout', [CheckoutController::class, 'checkout']);
+
+Route::get('/address', [CheckoutController::class, 'redirect']);
+
+Route::get('/payment', [CheckoutController::class, 'redirect']);
+
+Route::get('/checkout', [CheckoutController::class, 'redirect']);
