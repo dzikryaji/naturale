@@ -1,24 +1,24 @@
 /********** Template CSS **********/
 :root {
-    --primary: #34AD54;
-    --secondary: #FF9933;
-    --light: #F6FFF2;
-    --dark: #263A4F;
+    --primary: #34ad54;
+    --secondary: #ff9933;
+    --light: #f6fff2;
+    --dark: #263a4f;
 }
 form {
     width: 75%;
 }
 
 .btn {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     letter-spacing: 1px;
     font-weight: 700;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .btn-primary,
 .btn-secondary {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .btn-square {
@@ -57,9 +57,9 @@ form {
     padding: 30px 15px;
     font-size: 16px;
     font-weight: 600;
-    color: #FFFFFF;
+    color: #ffffff;
     text-transform: uppercase;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .sticky-top.navbar-dark .navbar-nav .nav-link {
@@ -72,7 +72,7 @@ form {
 }
 
 @media (max-width: 991.98px) {
-    .navbar-dark .navbar-nav .nav-link  {
+    .navbar-dark .navbar-nav .nav-link {
         padding: 10px;
     }
 }
@@ -114,18 +114,23 @@ form {
 }
 
 .bg-vegetable {
-    background: linear-gradient(rgba(52, 173, 84, .2), rgba(52, 173, 84, .2)), url(../img/vegetable.png) bottom right no-repeat;
+    background: linear-gradient(rgba(52, 173, 84, 0.2), rgba(52, 173, 84, 0.2)),
+        url(../img/vegetable.png) bottom right no-repeat;
     background-size: contain;
 }
 
 .bg-fruit {
-    background: linear-gradient(rgba(255, 153, 51, .2), rgba(255, 153, 51, .2)), url(../img/fruit.png) bottom right no-repeat;
+    background: linear-gradient(
+            rgba(255, 153, 51, 0.2),
+            rgba(255, 153, 51, 0.2)
+        ),
+        url(../img/fruit.png) bottom right no-repeat;
     background-size: contain;
 }
 
 .service-item {
-    box-shadow: 0 0 45px #EDEDED;
-    transition: .5s;
+    box-shadow: 0 0 45px #ededed;
+    transition: 0.5s;
 }
 
 .about i,
@@ -133,7 +138,7 @@ form {
     background-image: linear-gradient(var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .service-item:hover {
@@ -146,7 +151,7 @@ form {
 }
 
 .service-item:hover h4 {
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .service-item:hover h4 {
@@ -163,7 +168,7 @@ form {
     bottom: -40px;
     left: 0;
     opacity: 0;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .product-item:hover .btn-action {
@@ -172,7 +177,7 @@ form {
 }
 
 .product-item h5 {
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .product-item:hover h5 {
@@ -186,7 +191,8 @@ form {
     height: 55%;
     bottom: 0;
     left: 0;
-    background: url(../img/bg-product-1.png) left bottom no-repeat, url(../img/bg-product-2.png) right bottom no-repeat;
+    background: url(../img/bg-product-1.png) left bottom no-repeat,
+        url(../img/bg-product-2.png) right bottom no-repeat;
     background-size: contain;
     background-color: var(--primary);
     z-index: -1;
@@ -200,7 +206,7 @@ form {
 }
 
 .product-carousel .owl-nav .owl-prev,
-.product-carousel .owl-nav .owl-next{
+.product-carousel .owl-nav .owl-next {
     position: relative;
     width: 55px;
     height: 45px;
@@ -208,9 +214,9 @@ form {
     align-items: center;
     justify-content: center;
     color: var(--primary);
-    background: #FFFFFF;
+    background: #ffffff;
     font-size: 22px;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .product-carousel .owl-nav .owl-prev:hover,
@@ -224,7 +230,7 @@ form {
 }
 
 .testimonial-carousel {
-    background: rgba(52, 173, 84, .7);
+    background: rgba(52, 173, 84, 0.7);
 }
 
 .testimonial-carousel .owl-nav {
@@ -247,9 +253,9 @@ form {
     align-items: center;
     justify-content: center;
     color: var(--primary);
-    background: #FFFFFF;
+    background: #ffffff;
     font-size: 22px;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .testimonial-carousel .owl-nav .owl-prev:hover,
@@ -263,7 +269,7 @@ form {
 }
 
 .blog-item img {
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .blog-item:hover img {
@@ -286,7 +292,8 @@ form {
 }
 
 .bg-footer {
-    background: linear-gradient(rgba(52, 173, 84, .7), rgba(52, 173, 84, .7)), url(../img/footer.png) center bottom no-repeat;
+    background: linear-gradient(rgba(52, 173, 84, 0.7), rgba(52, 173, 84, 0.7)),
+        url(../img/footer.png) center bottom no-repeat;
     background-size: contain;
 }
 
@@ -298,6 +305,23 @@ form {
 
 .form-control::-webkit-outer-spin-button,
 .form-control::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-signin {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-signin input {
+    border-radius: 8px;
 }

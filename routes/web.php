@@ -32,3 +32,15 @@ Route::get('/address', [CheckoutController::class, 'redirect']);
 Route::get('/payment', [CheckoutController::class, 'redirect']);
 
 Route::get('/checkout', [CheckoutController::class, 'redirect']);
+
+Route::get('/login', function(){
+    return view('login', [
+        'title' => 'Login'
+    ]);
+});
+
+Route::get('/register', function(){
+    return view('register', [
+        'title' => 'Register'
+    ]);
+});
