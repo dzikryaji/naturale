@@ -5,9 +5,6 @@
     --light: #f6fff2;
     --dark: #263a4f;
 }
-form {
-    width: 75%;
-}
 
 .btn {
     font-family: "Roboto", sans-serif;
@@ -60,6 +57,8 @@ form {
     color: #ffffff;
     text-transform: uppercase;
     transition: 0.5s;
+    background: var(--primary);
+    border: 0px;
 }
 
 .sticky-top.navbar-dark .navbar-nav .nav-link {

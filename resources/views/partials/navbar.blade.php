@@ -10,9 +10,15 @@
         <div class="navbar-nav py-0 me-auto">
             <a href="/" class="nav-item nav-link">Home</a>
         </div>
+        @auth   
+        <div class="navbar-nav py-0">
+            <button class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
+        </div>
+        @else
         <div class="navbar-nav py-0">
             <a href="/login" class="nav-item nav-link">Login</a>
         </div>
+        @endauth
     </div>
 </nav>
 <!-- Navbar End -->

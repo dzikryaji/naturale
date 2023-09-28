@@ -32,16 +32,13 @@
 
 <body>
     @if (session('alert'))
-        <div class="position-fixed top-0 end-0 p-3" style="z-index: 100">
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 1000000000">
             <div class="alert alert-{{ session('alert')['type'] }} alert-dismissible fade show rounded-3"
                 id="notification" role="alert" style="display: none">
                 {{ session('alert')['msg'] }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
-        @php
-            session()->forget('alert');
-        @endphp
     @endif
 
     @include('partials.topbar')
@@ -51,6 +48,10 @@
     @yield('container')
 
     @include('partials.footer')
+
+    @auth
+        @include('partials.modal')
+    @endauth
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
