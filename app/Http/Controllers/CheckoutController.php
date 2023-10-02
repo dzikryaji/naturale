@@ -2,31 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    public function address(Request $request)
+    public function storeQuantity(Request $request)
     {
-        $input = $request->input();
         $product = Product::find(session('product')['id']);
-        $quantity = $input['quantity'];
-        if ($product->stock <= $quantity) {
-            session()->flash('alert', ['type' => 'danger', 'msg' => 'Quantity must be less or equal to ' . $product->stock]);
-        } else {
-            session(['product' => ['id' => $product->id, 'quantity' => $quantity ]]);
-            return view('address', [
-                'title' => 'Checkout | Address',
-                'product' => $product
-            ]);
-        }
+        $validatedData = $request->validate([
+            'quantity' => "required|numeric|min:1|max:$product->stock"
+        ]);
+        session(['product' => ['id' => $product->id, 'quantity' => $validatedData['quantity']]]);
+        return redirect('/address');
     }
 
-    public function payment(Request $request)
+    public function showAddressForm()
     {
-        session(['address' => $request->input()]);
+        $product = Product::find(session('product')['id']);
+        $data = [
+            'title' => 'Checkout | Address',
+            'product' => $product
+        ];
+        if (Address::where('user_id', auth()->user()->id)->exists())
+        {
+            $data['address'] = Address::where('user_id', auth()->user()->id);
+        }
+        return view('address', $data);
+    }
+
+    public function storeAddress(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'address' => 'required|max:255',
+            'city' => 'required|max:255',
+            'province' => 'required|max:255',
+            'contact_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10'
+        ]);
+
+        if ($request->saveInformation) {
+            $validatedData['user_id'] = auth()->user()->id;
+            Address::create($validatedData);
+        }
+        session(['address' => $validatedData]);
+        return redirect('/payment');
+    }
+
+    public function showPaymentForm()
+    {
         $product = Product::find(session('product')['id']);
         return view('payment', [
             'title' => 'Checkout | Credit Card',
@@ -44,6 +70,6 @@ class CheckoutController extends Controller
             return redirect('/')->with('alert', ['type' => 'success', 'msg' => 'Product was Successfully Purchased']);
         } catch (Exception $e) {
             return redirect('/')->with('alert', ['type' => 'danger', 'msg' => 'Failed to Purchase Product']);
-        } 
+        }
     }
 }

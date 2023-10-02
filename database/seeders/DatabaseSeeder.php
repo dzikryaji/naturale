@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        User::create([
+            'name' => 'Dzikry Aji Santoso',
+            'email' => 'dzikryaji@test.com',
+            'password' => bcrypt('password')
+        ]);
 
         Product::create([
             'name' => 'Carrot',
@@ -53,7 +60,7 @@ class DatabaseSeeder extends Seeder
             <p>Pepper is more than just a spice; it's a flavor revolution waiting to happen in your kitchen. Its versatility, health benefits, and ability to elevate the taste and aroma of your dishes are unmatched. Whether you're an aspiring chef or simply someone who appreciates delicious food, make pepper a staple in your culinary repertoire. Elevate your meals with the magic of pepper, and savor the extraordinary in every bite!</p>",
             'imagesrc' => 'pepper'
         ]);
-        
+
         Product::create([
             'name' => 'Papaya',
             'category' => 'Fruit',
@@ -81,7 +88,7 @@ class DatabaseSeeder extends Seeder
             'category' => 'Vegetable',
             'stock' => 20,
             'price' => 0.75,
-            'description' =>"<p>Are you searching for a kitchen superstar that can elevate the taste of your meals while providing a host of health benefits? Look no further than the humble onion, a versatile and indispensable ingredient that deserves a place in every pantry.
+            'description' => "<p>Are you searching for a kitchen superstar that can elevate the taste of your meals while providing a host of health benefits? Look no further than the humble onion, a versatile and indispensable ingredient that deserves a place in every pantry.
             </p>
             <p>Whether you're a seasoned chef, a home cook, or simply someone who appreciates flavorful meals and good health, onions are your trusty companions in the kitchen. Embrace the versatility, nutrition, and culinary magic of onions, and transform every dish you create into a masterpiece of taste and wellness!</p>",
             'imagesrc' => 'onion'
@@ -92,7 +99,7 @@ class DatabaseSeeder extends Seeder
             'category' => 'Fruit',
             'stock' => 20,
             'price' => 1.00,
-            'description' =>"<p>Are you in search of a sweet and nutritious delight that not only satisfies your taste buds but also offers a host of health benefits? Look no further than the tropical wonder known as pineapple. This vibrant and juicy fruit is not just a refreshing treat but also a powerful addition to your daily diet.
+            'description' => "<p>Are you in search of a sweet and nutritious delight that not only satisfies your taste buds but also offers a host of health benefits? Look no further than the tropical wonder known as pineapple. This vibrant and juicy fruit is not just a refreshing treat but also a powerful addition to your daily diet.
             </p>
             <p>Whether you're a health-conscious individual, a culinary explorer, or simply someone who enjoys the pleasures of life, pineapple is a delightful choice. Embrace the tropical goodness of pineapple and savor the perfect blend of flavor, nutrition, and refreshment in every juicy bite. Elevate your health and happiness with this tropical treasure!</p>",
             'imagesrc' => 'pineapple'

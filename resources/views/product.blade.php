@@ -34,8 +34,8 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="number" class="form-control text-center" value="1" min="1"
-                                name="quantity"max="{{ $seenProduct->stock }}">
+                            <input type="number" class="form-control text-center @error('quantity') border-danger @enderror" value="1" min="1"
+                                name="quantity">
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-primary btn-plus">
                                     <i class="fa fa-plus"></i>
@@ -46,6 +46,11 @@
                             CheckOut</button>
                     </div>
                 </form>
+                @error('quantity')
+                    <div class="d-flex p-0 invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
                 <div class="d-flex pt-2">
                     <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
                     <div class="d-inline-flex">

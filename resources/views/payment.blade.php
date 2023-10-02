@@ -55,6 +55,13 @@
                                     @endfor
                                 </select>
                             </div>
+                            <div class="form-check my-3 ms-2">
+                                <input class="form-check-input" type="checkbox" value="save" id="saveInformation"
+                                    name="saveInformation">
+                                <label class="text-dark w-100 text-start ps-2 mb-2" for="saveInformation">
+                                    Save Credit Card Information
+                                </label>
+                            </div>
 
                             <div class="col-12">
                                 <input type="submit" class="btn btn-primary w-100 py-3" value="Pay">
