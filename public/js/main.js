@@ -134,7 +134,7 @@
     $('#notification').show('slow');
     setTimeout(() =>{
         $('#notification').hide('slow');
-    }, 5000);
+    }, 15000);
 
     $('#inputSearch').blur(function () { 
         if($(this).val().length === 0){

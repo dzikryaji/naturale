@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Card;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
@@ -26,9 +27,8 @@ class CheckoutController extends Controller
             'title' => 'Checkout | Address',
             'product' => $product
         ];
-        if (Address::where('user_id', auth()->user()->id)->exists())
-        {
-            $data['address'] = Address::where('user_id', auth()->user()->id);
+        if (Address::where('user_id', auth()->user()->id)->exists()) {
+            $data['address'] = Address::where('user_id', auth()->user()->id)->first();
         }
         return view('address', $data);
     }
@@ -44,8 +44,12 @@ class CheckoutController extends Controller
         ]);
 
         if ($request->saveInformation) {
-            $validatedData['user_id'] = auth()->user()->id;
-            Address::create($validatedData);
+            if (Address::where('user_id', auth()->user()->id)->exists()) {
+                Address::where('user_id', auth()->user()->id)->update($validatedData);
+            }else {
+                $validatedData['user_id'] = auth()->user()->id;
+                Address::create($validatedData);
+            }
         }
         session(['address' => $validatedData]);
         return redirect('/payment');
@@ -54,19 +58,39 @@ class CheckoutController extends Controller
     public function showPaymentForm()
     {
         $product = Product::find(session('product')['id']);
-        return view('payment', [
+        $data = [
             'title' => 'Checkout | Credit Card',
             'product' => $product
-        ]);
+        ];
+        if (Card::where('user_id', auth()->user()->id)->exists()) {
+            $data['card'] = Card::where('user_id', auth()->user()->id)->first();
+        }
+        return view('payment', $data);
     }
 
     public function checkout(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'number' => 'required|integer|digits_between:13,19',
+            'month' => 'required|integer|digits_between:1,2',
+            'year' => 'required|integer|digits:4',
+            'cvc' => 'required|integer|digits:3'
+        ]);
+
+        if ($request->saveInformation) {
+            if (Card::where('user_id', auth()->user()->id)->exists()) {
+                Card::where('user_id', auth()->user()->id)->update($validatedData);
+            }else {
+                $validatedData['user_id'] = auth()->user()->id;
+                Card::create($validatedData);
+            }
+        }
+
         session(['creditCard' => $request->input()]);
         try {
             Product::decreaseStock(session('product'));
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+            $request->flush();
             return redirect('/')->with('alert', ['type' => 'success', 'msg' => 'Product was Successfully Purchased']);
         } catch (Exception $e) {
             return redirect('/')->with('alert', ['type' => 'danger', 'msg' => 'Failed to Purchase Product']);

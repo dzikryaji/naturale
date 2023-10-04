@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Dzikry Aji Santoso',
             'email' => 'dzikryaji@test.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('12345678')
         ]);
 
         Product::create([

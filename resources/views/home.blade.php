@@ -124,11 +124,11 @@
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-center mb-4">
-                            <form action="/home">
+                            <form action="/home" class="w-100 px-4">
                                 @if (request('category'))
                                     <input type="hidden" name="category" value="{{ request('category') }}">
                                 @endif
-                                <div class="input-group">
+                                <div class="input-group w-100">
                                     <input type="text" class="form-control" placeholder="Search by name" name="search" id='inputSearch' value="{{ request('search') }}">
                                     <div class="input-group-append">
                                         <button id="btnSearch" class="input-group-text bg-transparent text-primary h-100" type="{{ request('search') ? 'submit' : 'button' }}">
