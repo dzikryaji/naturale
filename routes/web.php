@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -39,4 +40,4 @@ Route::get('/logout', fn() => redirect('/'));
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/cart', [CheckoutController::class, 'cart'])->middleware('auth');
+Route::resource('/cart', CartController::class)->middleware('auth');

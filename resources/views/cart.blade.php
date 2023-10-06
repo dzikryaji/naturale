@@ -5,16 +5,16 @@
         <h5 class="mb-3">Not ready to Checkout? Continue Shopping</h5>
         <div class="row mb-4">
             <div class="col-md-8 pe-2 pe-lg-5">
-                @foreach ($products as $product)
+                @foreach ($carts as $cart)
                     <div class="row py-3 mb-3 {{ !$loop->last ? 'border-bottom border-secondary' : '' }}">
                         <div class="col-md-4 col-5">
-                            <img src="img/product/{{ $product->imagesrc }}1.jpg" alt="" class="img-thumbnail w-100"
+                            <img src="img/product/{{ $cart->product->imagesrc }}1.jpg" alt="" class="img-thumbnail w-100"
                                 style="bject-fit: contain;">
                         </div>
                         <div class="col-md-8 col-7 h-100">
-                            <h4>{{ $product->name }}</h4>
-                            <small>Quantity: {{ $product->stock }}</small>
-                            <h4 class="mt-2">${{ number_format($product->price * $product->stock) }}</h4>
+                            <h4>{{ $cart->product->name }}</h4>
+                            <small>Quantity: {{ $cart->product->stock }}</small>
+                            <h4 class="mt-2">${{ number_format($cart->product->price * $cart->product->stock) }}</h4>
                             <div class="text-end mt-md-5">
                                 <a href="" class="text-dark text-decoration-underline">Remove</a>
                             </div>
@@ -48,7 +48,7 @@
                         <h5>${{ number_format($totalPrice) }}</h5>
                     </div>
                 </div>
-                @if (count($products))
+                @if (count($carts))
                     <a href="" class="btn btn-primary text-white d-block w-100">Continue to Checkout</a>
                 @endif
             </div>

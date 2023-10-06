@@ -10,19 +10,6 @@ use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    public function cart()
-    {
-        $products = Product::all()->take(5);
-        $totalPrice = 0;
-        foreach ($products as $product) {
-            $totalPrice += $product->price * $product->stock;
-        }
-        return view('cart', [
-            'title' => 'Cart',
-            'products' => $products,
-            'totalPrice' => $totalPrice,
-        ]);
-    }
 
     public function storeQuantity(Request $request)
     {

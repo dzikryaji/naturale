@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Cart;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -192,5 +193,7 @@ class DatabaseSeeder extends Seeder
             <p>Coconuts are also incredibly versatile. You can use them in various forms such as coconut milk, coconut water, coconut oil, and shredded coconut. These versatile ingredients can be incorporated into both sweet and savory dishes, from curries and smoothies to desserts and baked goods.</p>",
             'imagesrc' => 'coconut'
         ]);
+
+        Cart::factory(5)->create();
     }
 }
