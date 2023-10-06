@@ -12,7 +12,7 @@
         </div>
         @auth   
         <div class="navbar-nav py-0">
-            <a href="" class="nav-item nav-link">Cart</a>
+            <a href="/cart" class="nav-item nav-link">Cart</a>
             <a href="/profile" class="nav-item nav-link">My Profile</a>
             <button class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</button>
         </div>

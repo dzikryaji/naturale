@@ -38,3 +38,5 @@ Route::get('/logout', fn() => redirect('/'));
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/cart', [CheckoutController::class, 'cart'])->middleware('auth');
