@@ -13,10 +13,14 @@
                         </div>
                         <div class="col-md-8 col-7 h-100">
                             <h4>{{ $cart->product->name }}</h4>
-                            <small>Quantity: {{ $cart->product->stock }}</small>
-                            <h4 class="mt-2">${{ number_format($cart->product->price * $cart->product->stock) }}</h4>
+                            <small>Quantity: {{ $cart->quantity }}</small>
+                            <h4 class="mt-2">${{ number_format($cart->product->price * $cart->quantity, 2, '.', ',') }}</h4>
                             <div class="text-end mt-md-5">
-                                <a href="" class="text-dark text-decoration-underline">Remove</a>
+                                <form action="cart/{{ $cart->id }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger">Remove</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -29,7 +33,7 @@
                         <h5>Subtotal</h5>
                     </div>
                     <div class="float-end">
-                        <h5>${{ number_format($totalPrice) }}</h5>
+                        <h5>${{ number_format($totalPrice, 2, '.', ',') }}</h5>
                     </div>
                 </div>
                 <div class="clearfix border-bottom border-secondary pb-3 mb-3">
@@ -45,7 +49,7 @@
                         <h5>Total</h5>
                     </div>
                     <div class="float-end">
-                        <h5>${{ number_format($totalPrice) }}</h5>
+                        <h5>${{ number_format($totalPrice, 2, '.', ',') }}</h5>
                     </div>
                 </div>
                 @if (count($carts))

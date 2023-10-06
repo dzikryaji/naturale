@@ -24,7 +24,7 @@
                 <h3 class="font-weight-semi-bold mb-4">${{ number_format($seenProduct->price, 2, '.', ',') }}</h3>
                 <h3 class="font-weight-semi-bold mb-4">Stock : {{ $seenProduct->stock }}</h3>
                 {!! $seenProduct->description !!}
-                <form action="/address" method="post">
+                <form action="/cart" method="post">
                     @csrf
 
                     <div class="d-flex align-items-center mb-4 pt-2">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>
-                            CheckOut</button>
+                            Add to Cart</button>
                     </div>
                 </form>
                 @error('quantity')

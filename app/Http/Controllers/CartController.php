@@ -16,7 +16,7 @@ class CartController extends Controller
         $carts = Cart::where('user_id', auth()->user()->id)->get();
         $totalPrice = 0;
         foreach ($carts as $cart) {
-            $totalPrice += $cart->product->price * $cart->product->stock;
+            $totalPrice += $cart->product->price * $cart->quantity;
         }
         return view('cart', [
             'title' => 'Cart',
@@ -38,7 +38,25 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::find(session('product')['id']);
+        $validatedData = $request->validate([
+            'quantity' => "required|numeric|min:1|max:$product->stock"
+        ]);
+
+        if (Cart::where('user_id', auth()->user()->id)->where('product_id', $product->id)->exists()) {
+            $cart = Cart::where('user_id', auth()->user()->id)->where('product_id', $product->id)->first();
+            $cart->quantity = $request->quantity;
+            $cart->update();
+
+            return redirect('/cart')->with('alert', ['type' => 'success', 'msg' => 'Product Quantity Has Been Updated in Cart']);
+        } else {
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['product_id'] = $product->id;
+
+            Cart::create($validatedData);
+
+            return redirect('/cart')->with('alert', ['type' => 'success', 'msg' => 'Product Has Been Added To Cart']);
+        }
     }
 
     /**
@@ -62,7 +80,10 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        //
+        $cart->quantity = $request->quantity;
+        $cart->update();
+
+        return redirect('/cart')->with('alert', ['type' => 'success', 'msg' => 'Product Quantity Has Been Updated in Cart']);
     }
 
     /**
@@ -70,6 +91,7 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        Cart::destroy($cart->id);
+        return redirect('/cart')->with('alert', ['type' => 'success', 'msg' => 'Product Has Been Removed From Cart']);
     }
 }

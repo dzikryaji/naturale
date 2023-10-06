@@ -40,4 +40,4 @@ Route::get('/logout', fn() => redirect('/'));
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::resource('/cart', CartController::class)->middleware('auth');
+Route::resource('/cart', CartController::class)->only(['index', 'destroy', 'store'])->middleware('auth');
