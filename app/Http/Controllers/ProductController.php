@@ -47,7 +47,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        session(['product' => ['id' => $product->id ]]);
         $seenProduct = $product;
         $products = Product::all(); 
         return view('product', [

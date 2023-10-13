@@ -5,28 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Card;
 use App\Models\Product;
+use App\Models\Cart;
 use Exception;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
 
-    public function storeQuantity(Request $request)
-    {
-        $product = Product::find(session('product')['id']);
-        $validatedData = $request->validate([
-            'quantity' => "required|numeric|min:1|max:$product->stock"
-        ]);
-        session(['product' => ['id' => $product->id, 'quantity' => $validatedData['quantity']]]);
-        return redirect('/address');
-    }
-
     public function showAddressForm()
     {
-        $product = Product::find(session('product')['id']);
+        $carts = Cart::where('user_id', auth()->user()->id)->get();
+        $totalPrice = 0;
+        foreach ($carts as $cart) {
+            $totalPrice += $cart->product->price * $cart->quantity;
+        }
         $data = [
             'title' => 'Checkout | Address',
-            'product' => $product
+            'carts' => $carts,
+            'totalPrice' => $totalPrice
         ];
         if (Address::where('user_id', auth()->user()->id)->exists()) {
             $data['address'] = Address::where('user_id', auth()->user()->id)->first();
@@ -47,26 +43,35 @@ class CheckoutController extends Controller
         if ($request->saveInformation) {
             if (Address::where('user_id', auth()->user()->id)->exists()) {
                 Address::where('user_id', auth()->user()->id)->update($validatedData);
-            }else {
+            } else {
                 $validatedData['user_id'] = auth()->user()->id;
                 Address::create($validatedData);
             }
         }
         session(['address' => $validatedData]);
-        return redirect('/payment');
+        return redirect('/checkout/payment');
     }
 
     public function showPaymentForm()
     {
-        $product = Product::find(session('product')['id']);
-        $data = [
-            'title' => 'Checkout | Credit Card',
-            'product' => $product
-        ];
-        if (Card::where('user_id', auth()->user()->id)->exists()) {
-            $data['card'] = Card::where('user_id', auth()->user()->id)->first();
+        if (session()->has('address')) {
+            $carts = Cart::where('user_id', auth()->user()->id)->get();
+            $totalPrice = 0;
+            foreach ($carts as $cart) {
+                $totalPrice += $cart->product->price * $cart->quantity;
+            }
+            $data = [
+                'title' => 'Checkout | Payment Information',
+                'carts' => $carts,
+                'totalPrice' => $totalPrice
+            ];
+            if (Card::where('user_id', auth()->user()->id)->exists()) {
+                $data['card'] = Card::where('user_id', auth()->user()->id)->first();
+            }
+            return view('payment', $data);
+        } else {
+            return redirect('/cart');
         }
-        return view('payment', $data);
     }
 
     public function checkout(Request $request)
@@ -82,7 +87,7 @@ class CheckoutController extends Controller
         if ($request->saveInformation) {
             if (Card::where('user_id', auth()->user()->id)->exists()) {
                 Card::where('user_id', auth()->user()->id)->update($validatedData);
-            }else {
+            } else {
                 $validatedData['user_id'] = auth()->user()->id;
                 Card::create($validatedData);
             }

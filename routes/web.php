@@ -24,13 +24,11 @@ Route::get('/home', [ProductController::class, 'index']);
 
 Route::get('/product/{product}', [ProductController::class, 'show']);
 
-Route::post('/address', [CheckoutController::class, 'storeQuantity'])->middleware('auth');
-Route::post('/payment', [CheckoutController::class, 'storeAddress'])->middleware('auth');
-Route::post('/checkout', [CheckoutController::class, 'checkout'])->middleware('auth');
+Route::post('/checkout/address', [CheckoutController::class, 'storeAddress'])->middleware('auth');
+Route::post('/chekout/payment', [CheckoutController::class, 'checkout'])->middleware('auth');
 
-Route::get('/address', [CheckoutController::class, 'showAddressForm'])->middleware('auth');
-Route::get('/payment', [CheckoutController::class, 'showPaymentForm'])->middleware('auth');
-Route::get('/checkout', fn() => redirect('/'))->middleware('auth');
+Route::get('/checkout/address', [CheckoutController::class, 'showAddressForm'])->middleware('auth');
+Route::get('/checkout/payment', [CheckoutController::class, 'showPaymentForm'])->middleware('auth');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

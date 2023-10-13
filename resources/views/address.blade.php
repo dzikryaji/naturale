@@ -2,23 +2,33 @@
 @section('container')
     <!-- Checkout Start -->
     <div class="container-fluid py-5 px-5">
+        <div class="row">
+            <div>
+                <h1 class="display-5 text-uppercase">CHECKOUT</h1>
+            </div>
+        </div>
         <div class="row gx-5">
             <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="mb-4">
-                    <h1 class="display-5 text-uppercase mb-4">CHECKOUT</h1>
-                </div>
-                <div class="product-item position-relative bg-white d-flex flex-column">
-                    <img class="img-fluid mb-4" src="{{ url('img/product/' . $product->imagesrc . '1.jpg') }}" alt="">
-                    <h6 class="mb-3">Product Name : {{ $product->name }}</h6>
-                    <h6 class="mb-3">Quantity : {{ session('product')['quantity'] }}</h6>
-                    <h4 class="text-primary">Total Amount
-                        ${{ number_format($product->price * session('product')['quantity'], 2, '.', ',') }}</h4>
-                </div>
+                <h4 class="text-primary mb-3">Total Amount ${{ number_format($totalPrice, 2, '.', ',') }}</h4>
+                @foreach ($carts as $cart)
+                    <div class="row py-3 mb-3 {{ !$loop->last ? 'border-bottom border-secondary' : '' }}">
+                        <div class="col-md-6 col-5">
+                            <img src="/img/product/{{ $cart->product->imagesrc }}1.jpg" alt=""
+                                class="img-thumbnail w-100" style="object-fit: contain;">
+                        </div>
+                        <div class="col-md-6 col-7 h-100">
+                            <h4>{{ $cart->product->name }}</h4>
+                            <small>Quantity: {{ $cart->quantity }}</small>
+                            <h4 class="mt-2">${{ number_format($cart->product->price * $cart->quantity, 2, '.', ',') }}
+                            </h4>
+                        </div>
+                    </div>
+                @endforeach
             </div>
             <div class="col-lg-8">
                 <div class="bg-light text-center p-5">
-                    <h3 class="mb-3">Address Information</h3>
-                    <form action="/payment" method="post">
+                    <h3 class="mb-3">Delivery Information</h3>
+                    <form action="/checkout/address" method="post">
                         @csrf
                         <div class="row g-3">
                             <div class="col-12 col-sm-6">
