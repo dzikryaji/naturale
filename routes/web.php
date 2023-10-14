@@ -25,7 +25,7 @@ Route::get('/home', [ProductController::class, 'index']);
 Route::get('/product/{product}', [ProductController::class, 'show']);
 
 Route::post('/checkout/address', [CheckoutController::class, 'storeAddress'])->middleware('auth');
-Route::post('/chekout/payment', [CheckoutController::class, 'checkout'])->middleware('auth');
+Route::post('/checkout/payment', [CheckoutController::class, 'checkout'])->middleware('auth');
 
 Route::get('/checkout/address', [CheckoutController::class, 'showAddressForm'])->middleware('auth');
 Route::get('/checkout/payment', [CheckoutController::class, 'showPaymentForm'])->middleware('auth');

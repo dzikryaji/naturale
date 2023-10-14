@@ -16,7 +16,11 @@ class CartController extends Controller
         $carts = Cart::where('user_id', auth()->user()->id)->get();
         $totalPrice = 0;
         foreach ($carts as $cart) {
-            $totalPrice += $cart->product->price * $cart->quantity;
+            if ($cart->quantity > $cart->product->stock) {
+                $cart->delete();
+            } else {
+                $totalPrice += $cart->product->price * $cart->quantity;
+            }
         }
         return view('cart', [
             'title' => 'Cart',
@@ -38,7 +42,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::find(session('product')['id']);
+        $product = Product::find($request->product_id);
         $validatedData = $request->validate([
             'quantity' => "required|numeric|min:1|max:$product->stock"
         ]);

@@ -22,10 +22,10 @@ class Product extends Model
         });
     }
 
-    public function scopeDecreaseStock($query, $p)
+    public function scopeDecreaseStock($query, $cart)
     {   
-        $product = $query->find($p['id']);
-        $product->stock -= $p['quantity'];
+        $product = $cart->product;
+        $product->stock -= $cart->quantity;
         $product->update();
     }
 }

@@ -45,6 +45,7 @@
                         <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>
                             Add to Cart</button>
                     </div>
+                    <input type="hidden" name="product_id" value="{{ $seenProduct->id }}">
                 </form>
                 @error('quantity')
                     <div class="d-flex p-0 invalid-feedback">
@@ -79,11 +80,11 @@
         <div class="text-center mb-4">
             <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
         </div>
-        <div class="row px-xl-5">
+        <div class="row px-xl-5 bg-primary py-3">
             <div class="col">
                 <div class="owl-carousel related-carousel">
                     @foreach ($products->shuffle() as $product)
-                        <div class="card product-item border-0">
+                        <div class="card product-item border-0 py-3 rounded">
                             <div
                                 class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                 <img class="img-fluid w-100" src="{{ url('img/product/' . $product->imagesrc . '1.jpg') }}"
@@ -97,7 +98,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-center bg-light border">
                                 <a href="{{ url('product/' . $product->id) }}" class="btn btn-sm text-dark p-0"><i
-                                        class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                        class="fas fa-eye text-primary me-1"></i>View Detail</a>
                             </div>
                         </div>
                     @endforeach

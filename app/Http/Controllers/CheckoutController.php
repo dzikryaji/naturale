@@ -94,9 +94,12 @@ class CheckoutController extends Controller
         }
 
         session(['creditCard' => $request->input()]);
+        $carts = Cart::where('user_id', auth()->user()->id)->get();
         try {
-            Product::decreaseStock(session('product'));
-            $request->flush();
+            foreach ($carts as $cart) {
+                Product::decreaseStock($cart);
+                $cart->delete();
+            }
             return redirect('/')->with('alert', ['type' => 'success', 'msg' => 'Product was Successfully Purchased']);
         } catch (Exception $e) {
             return redirect('/')->with('alert', ['type' => 'danger', 'msg' => 'Failed to Purchase Product']);
