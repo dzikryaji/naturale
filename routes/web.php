@@ -4,8 +4,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +39,8 @@ Route::get('/logout', fn() => redirect('/'));
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
+Route::post('/profile', [ProfileController::class, 'update']);
 
 Route::resource('/cart', CartController::class)->only(['index', 'destroy', 'store'])->middleware('auth');

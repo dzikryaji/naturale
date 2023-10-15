@@ -171,7 +171,11 @@
         }
     });
 
-
+    $('#clearBtn').click(()=>{
+        $('.form-control').each(function(){
+            $(this).val("");
+        });
+    })
 
 })(jQuery);
 
